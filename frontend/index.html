@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Assignment Tracker</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">📚 Assignment Tracker</div>
+
+        <div class="nav-links">
+            <a href="#">Dashboard</a>
+            <a href="#">Assignments</a>
+        </div>
+    </nav>
+
+
+    <!-- Main Content -->
+    <main class="container">
+
+        <!-- Welcome Section -->
+        <section class="welcome">
+            <h1>Student Assignment Tracker</h1>
+            <p>Manage your assignments, deadlines and progress in one place.</p>
+        </section>
+
+
+        <!-- Dashboard Cards -->
+        <section class="dashboard-cards">
+
+            <div class="card">
+                <h3>Total Assignments</h3>
+                <p id="totalAssignments">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Pending</h3>
+                <p id="pendingAssignments">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Completed</h3>
+                <p id="completedAssignments">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Due Soon</h3>
+                <p id="dueSoonAssignments">0</p>
+            </div>
+
+        </section>
+
+
+        <!-- Add Assignment -->
+        <section class="form-section">
+
+            <h2>Add New Assignment</h2>
+
+            <form id="assignmentForm">
+
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+
+                    <input
+                        type="text"
+                        id="subject"
+                        placeholder="Example: DBMS"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="title">Assignment Name</label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        placeholder="Example: SQL Assignment 3"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="dueDate">Due Date</label>
+
+                    <input
+                        type="date"
+                        id="dueDate"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="priority">Priority</label>
+
+                    <select id="priority">
+
+                        <option value="Low">Low</option>
+
+                        <option value="Medium" selected>
+                            Medium
+                        </option>
+
+                        <option value="High">
+                            High
+                        </option>
+
+                    </select>
+                </div>
+
+
+                <button type="submit">
+                    + Add Assignment
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- Assignment List -->
+        <section class="assignment-section">
+
+            <div class="section-header">
+
+                <h2>My Assignments</h2>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="🔍 Search assignments..."
+                >
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Subject</th>
+                            <th>Assignment</th>
+                            <th>Due Date</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="assignmentList">
+
+                        <!-- Assignments will appear here -->
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+</html>
