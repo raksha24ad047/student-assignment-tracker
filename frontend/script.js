@@ -23,6 +23,9 @@ const dueSoonAssignments =
 
 const searchInput =
     document.getElementById("searchInput");
+   
+const statusFilter =
+    document.getElementById("statusFilter"); 
 
 
 // Add assignment
@@ -256,16 +259,20 @@ function updateDashboard() {
 
 // Search assignments
 
-searchInput.addEventListener("input", function() {
+
+function filterAssignments() {
 
     const searchText =
         searchInput.value.toLowerCase();
+
+    const selectedStatus =
+        statusFilter.value;
 
 
     const filtered =
         assignments.filter(function(assignment) {
 
-            return (
+            const matchesSearch =
                 assignment.subject
                     .toLowerCase()
                     .includes(searchText)
@@ -274,12 +281,34 @@ searchInput.addEventListener("input", function() {
 
                 assignment.title
                     .toLowerCase()
-                    .includes(searchText)
-            );
+                    .includes(searchText);
+
+
+            const matchesStatus =
+                selectedStatus === "All"
+
+                ||
+
+                assignment.status === selectedStatus;
+
+
+            return matchesSearch && matchesStatus;
 
         });
 
 
     displayAssignments(filtered);
 
-});
+}
+
+
+searchInput.addEventListener(
+    "input",
+    filterAssignments
+);
+
+
+statusFilter.addEventListener(
+    "change",
+    filterAssignments
+);
