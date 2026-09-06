@@ -220,7 +220,17 @@ button:hover {
 #searchInput {
     width: 250px;
 }
+#statusFilter {
+    padding: 12px;
 
+    border: 1px solid #ddd;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+
+    margin-left: 10px;
+}
 
 /* Table */
 
@@ -285,6 +295,10 @@ td {
         width: 100%;
     }
 
+    #statusFilter {
+    width: 100%;
+    margin-left: 0;
+}
 }
 
 
