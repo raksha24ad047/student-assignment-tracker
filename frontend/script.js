@@ -1,6 +1,19 @@
 // Store assignments in an array
 
 let assignments = [];
+async function loadAssignments() {
+
+    const response =
+        await fetch("http://localhost:5000/api/assignments");
+
+    const data =
+        await response.json();
+
+    assignments = data;
+
+    displayAssignments(assignments);
+    updateDashboard();
+}
 
 
 // Get HTML elements
@@ -47,35 +60,44 @@ assignmentForm.addEventListener("submit", function(event) {
     const priority =
         document.getElementById("priority").value;
 
-
     const assignment = {
-
-        id: Date.now(),
-
         subject: subject,
-
         title: title,
-
         dueDate: dueDate,
-
-        priority: priority,
-
-        status: "Pending"
-
+        priority: priority
     };
 
+    fetch("http://localhost:5000/api/assignments", {
+        method: "POST",
 
-    assignments.push(assignment);
+        headers: {
+            "Content-Type": "application/json"
+        },
 
+        body: JSON.stringify(assignment)
+    })
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(data) {
 
-    assignmentForm.reset();
+        console.log("Assignment added:", data);
 
+        assignmentForm.reset();
 
-    displayAssignments();
+        loadAssignments();
 
-    updateDashboard();
+    })
+    .catch(function(error) {
+
+        console.error("Error adding assignment:", error);
+
+    });
 
 });
+
+
+
 
 
 // Display assignments
@@ -146,54 +168,79 @@ function displayAssignments(list = assignments) {
 
 
 // Change assignment status
+async function toggleStatus(id) {
 
-function toggleStatus(id) {
+    const assignment = assignments.find(function(item) {
+        return item.id === id;
+    });
 
-    const assignment =
-        assignments.find(function(item) {
-
-            return item.id === id;
-
-        });
-
-
-    if (assignment) {
-
-        if (assignment.status === "Pending") {
-
-            assignment.status = "Completed";
-
-        } else {
-
-            assignment.status = "Pending";
-
-        }
-
+    if (!assignment) {
+        return;
     }
 
+    const newStatus =
+        assignment.status === "Pending"
+            ? "Completed"
+            : "Pending";
 
-    displayAssignments();
+    fetch(`http://localhost:5000/api/assignments/${id}`, {
 
-    updateDashboard();
+        method: "PUT",
 
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            status: newStatus
+        })
+
+    })
+    .then(function(response) {
+        return response.json();
+    })
+
+    .then(function(data) {
+
+        console.log("Assignment updated:", data);
+
+        loadAssignments();
+
+    })
+
+    .catch(function(error) {
+
+        console.error("Error updating assignment:", error);
+
+    });
 }
 
 
 // Delete assignment
+async function deleteAssignment(id) {
 
-function deleteAssignment(id) {
+    fetch(`http://localhost:5000/api/assignments/${id}`, {
 
-    assignments = assignments.filter(function(assignment) {
+        method: "DELETE"
 
-        return assignment.id !== id;
+    })
+    .then(function(response) {
+        return response.json();
+    })
+
+    .then(function(data) {
+
+        console.log(data.message);
+
+        loadAssignments();
+
+    })
+
+    .catch(function(error) {
+
+        console.error("Error deleting assignment:", error);
 
     });
-
-
-    displayAssignments();
-
-    updateDashboard();
-
 }
 
 
@@ -312,3 +359,4 @@ statusFilter.addEventListener(
     "change",
     filterAssignments
 );
+loadAssignments();
