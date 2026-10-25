@@ -1,0 +1,23 @@
+{
+  "name": "student-assignment-tracker",
+  "version": "2.0.0",
+  "description": "A responsive student assignment dashboard with SQLite persistence, filters, editing, notes, and CSV export.",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "node backend/server.js",
+    "check": "node --check backend/server.js && node --check frontend/script.js"
+  },
+  "keywords": [
+    "student",
+    "assignments",
+    "tracker",
+    "sqlite",
+    "express"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.2.1",
+    "sqlite3": "^6.0.1"
+  }
+}

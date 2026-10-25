@@ -1,0 +1,6 @@
+node_modules/
+assignment_tracker.db
+assignment_tracker.db-shm
+assignment_tracker.db-wal
+.env
+.DS_Store
